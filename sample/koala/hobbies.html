@@ -1,0 +1,10 @@
+<div id="hobbies" class="item">
+	<h2>Hobbies</h2>
+	<ul id="menu" class="list">
+		{{ range .Hobbies -}}
+		<li>
+			<code class="badge">{{.}}</code>
+		</li>
+		{{end -}}
+	</ul>
+</div>

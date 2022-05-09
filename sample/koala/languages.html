@@ -1,0 +1,10 @@
+<div id="languages" class="item">
+  <h2>Languages</h2>
+  <ul class="list">
+    {{ range $n,$v := .Languages -}}
+    <li>
+      <code class="badge"><strong>{{.Language }}</strong> | {{.Proficiency }}</code>
+    </li>
+    {{end -}}
+  </ul>
+</div>

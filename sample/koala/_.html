@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Resume Alexandre Lamberty</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<style type="text/css">
+		@import url("https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@200;400;500;600&display=swap");
+		:root {
+			/* --bgcolor: #09090f; */
+			--bgcolor: #FFF;
+			--bgcolor1: #FFF;
+			/* --bgcolor1: #02090f; */
+			--fgcolor: #000;
+			/* --fgcolor: #e1d89f; */
+			--fgcolor1: #000;
+			/* --fgcolor1: #ff7300; */
+			--color3: #ff7300;
+			--colorbadge: #35312d;
+
+			--font: "Saira Extra Condensed", "Fira Sans", -apple-system,
+				BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+				"Droid Sans", "Helvetica Neue", sans-serif;
+
+			font-family: var(--font);
+			font-size: 100%;
+			background: var(--bgcolor);
+			color: var(--fgcolor);
+			text-rendering: optimizeLegibility;
+			padding: 0px;
+			margin: 0px;
+		}
+
+		body {
+			max-width: 60rem;
+			margin: 0 !important;
+			padding: 0 !important;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		a {
+			color: var(--fgcolor1);
+		}
+
+		h2 {
+			font-variant: small-caps;
+			margin-block-start: 0.2em;
+			margin-block-end: 0.3em;
+			color: var(--fgcolor1);
+			border-bottom: 1px solid var(--fgcolor1);
+		}
+
+		code {
+			overflow-wrap: normal;
+		}
+
+		.container {
+			width: 100%;
+			padding: 0px;
+			display: grid;
+			grid-template-columns: 240px auto;
+			/*columns widths*/
+		}
+
+		.column-left {
+			padding-top: 0px;
+			padding: 0px;
+		}
+
+		.column-right {
+			padding: 0px;
+			background-color: var(--bgcolor1);
+			height: 100%;
+		}
+
+
+
+		/* Utils */
+
+		.at {
+			color: var(--fgcolor1);
+		}
+
+		.grid-container {
+			display: grid;
+			grid-template-columns: auto auto auto;
+		}
+
+		.grid-item {
+			padding: 0px;
+			width: 90%;
+		}
+
+		.item {
+			font-size: 0.8;
+			width: 100%;
+			padding-left: 20px;
+			padding-right: 20px;
+			padding-bottom: 5px;
+		}
+
+		.list {
+			padding: 0;
+			margin-block-start: 0em;
+			margin-block-end: 0em;
+			margin-inline-start: 0px;
+			margin-inline-end: 0px;
+			list-style-type: none;
+		}
+
+		.list>li {
+			display: inline;
+			white-space: nowrap
+		}
+
+		.line {
+			/*border-top: 1px solid rgb(170, 170, 170);*/
+			padding-top: 10px;
+		}
+
+		.entity {
+			text-align: left;
+			margin: 0;
+		}
+
+		.details {
+			font-weight: 600;
+			margin: 0;
+		}
+
+		.dates {
+			text-align: left;
+			margin: 0;
+		}
+
+		.experience .dates {
+			text-align: right;
+			color: var(--colorbadge);
+			white-space: nowrap;²
+		}
+
+		.info {
+			font-size: 0.8;
+			width: 100%;
+			padding-bottom: 20px;
+			margin-bottom: 10px;
+		}
+
+		.badge {
+			border: 1px solid var(--colorbadge);
+			padding: 0.4em 0.6em;
+			font-size: 85%;
+			font-weight: 600;
+			border-radius: 3px;
+		}
+
+		/* Profile */
+
+		.firstname {
+			font-size: 3rem;
+			text-transform: uppercase;
+			margin: 0px;
+		}
+
+		.lastname {
+			font-size: 3rem;
+			text-transform: uppercase;
+			margin: 0px;
+			line-height: 20px;
+		}
+
+		.position {
+			font-size: 2rem;
+			margin: 0px;
+		}
+
+
+		/* About */
+
+		.about {
+			display: inline;
+		}
+
+		/* Activities */
+
+		.activity {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		/* Education */
+
+		.education {
+			justify-content: space-between;
+		}
+
+		/* Experience  */
+
+		.experience {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		/* Contact */
+
+		.contact {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		.contact i {
+			padding-right: 10px;
+			color: var(--fgcolor1);
+		}
+
+		@media print {
+			#printable {
+				color: red;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="column-left">
+			{{ template "picture.html" . }}
+			{{ template "about.html" . }}
+			{{ template "strengths.html" . }}
+			{{ template "education.html" . }}
+			{{ template "languages.html" . }}
+			{{ template "contact.html" . }}
+		</div>
+		<div class="column-right white">
+			{{ template "skills.html" . }}
+			{{ template "experience.html" . }}
+			{{ template "activities.html" . }}
+			{{ template "hobbies.html" . }}
+			{{ template "more.html" . }}
+		</div>
+	</div>
+</body>
+
+</html>

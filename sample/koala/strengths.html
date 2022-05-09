@@ -1,0 +1,9 @@
+<div id="skills" class="item">
+	<h2>Strength</h2>
+	<ul class="list"> {{ range .Strengths -}}
+		<li>
+			<code class="badge">{{.}}</code>
+		</li>
+		{{end -}}
+	</ul>
+</div>
