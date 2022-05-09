@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 
 	"gopkg.in/yaml.v2"
 )
@@ -30,7 +31,7 @@ func isFlagPassed(name string) bool {
 	return found
 }
 
-func toBase6(file string) string {
+func toBase64(file string) string {
 	// Read the entire file into a byte slice
 	bytes, err := ioutil.ReadFile(file)
 	if err != nil {
@@ -60,6 +61,8 @@ var (
 	i_flag string
 	t_flag string
 	o_flag string
+	i_dir  string
+	t_dir  string
 )
 
 type Color string
@@ -75,14 +78,19 @@ const (
 
 func main() {
 	// Command line argument
-	flag.StringVar(&i_flag, "i", "resume.yml", "resume file")
-	flag.StringVar(&t_flag, "t", "/resume-theme/*", "template directory")
-	flag.StringVar(&o_flag, "o", "html", "output file")
+	flag.StringVar(&i_flag, "i", "resume.yml", "YAML resume file")
+	flag.StringVar(&t_flag, "t", "tpl.gohtml", "Gohtml template file or directory")
+	flag.StringVar(&o_flag, "o", "resume.html", "Output HTML file")
 	flag.Parse()
 	// Check empty arguments
 	if !isFlagPassed("i") {
 		fmt.Println("-i flag not passed")
 	}
+
+	// Retrieve the resume file path
+	i_dir := filepath.Dir(i_flag)
+	t_dir := filepath.Dir(t_flag)
+
 	// Create a file on the system
 	out, err := os.Create("resume.html")
 	defer out.Close()
@@ -96,24 +104,28 @@ func main() {
 	check(err)
 
 	// Convert image file to base64 string
-	// Read picture filename
-	img := toBase6(data["Picture"].(string))
+	// Create the file path relative to the -i flag
+	fp := filepath.Join(i_dir, data["Picture"].(string))
+	// Covnert to base64
+	img := toBase64(fp)
 	// Replace picture filename with base64 string
 	data["Picture"] = img
 
-	// Templateing
-	// t, err := template.ParseGlob("templates/blue/*")
-	check(err)
+	// Templating
+	// FIXME Could be a single file or directory
+	// Check if dir || file
 	type any = map[string]interface{}
-	t := template.Must(template.New("_.html").Funcs(template.FuncMap{
+	fmt.Println(t_flag)
+	t := template.Must(template.New(filepath.Base(t_flag)).Funcs(template.FuncMap{
 		// Convert unsafe string to template.URL #ZgotmplZ
 		"Picture": func(u any) template.URL {
 			img := u["Picture"].(string)
 			return template.URL(img)
 		},
-	}).ParseGlob(t_flag+"/*")) // TODO Uniq file or directory
-
+		// FIXME: dir || file
+	}).ParseGlob(t_dir + "/*"))
 	err = t.Execute(out, data)
 	check(err)
+
 	fmt.Println(ColorBlue, "Resume converted!", string(ColorReset))
 }
